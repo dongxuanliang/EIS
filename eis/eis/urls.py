@@ -1,9 +1,8 @@
 from django.conf.urls import patterns, include, url
-#from eis.views import hello
 
 # Uncomment the next two lines to enable the admin:
-# from django.contrib import admin
-# admin.autodiscover()
+from django.contrib import admin 
+admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
@@ -14,7 +13,13 @@ urlpatterns = patterns('',
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
-    (r'^admin/', include(admin.site.urls)),
+     url(r'^admin/', include(admin.site.urls)),
     (r'^hello/(\d{1,3})/$', 'eis.views.hello'),
     (r'^hello2/\d{1,3}/$', 'eis.views.hello2'),
+    (r'^accounts/login/$', 'staff.views.login_view'),
+    (r'^accounts/logout/$', 'staff.views.logout_view'),
+    (r'^main/$', 'staff.views.main'),
+    (r'^ajax_staff_list/$', 'staff.views.ajax_staff_list'),
+    (r'^ajax_staff_add/$', 'staff.views.ajax_staff_add'),
+    (r'^ajax_staff_del/$', 'staff.views.ajax_staff_del'),
 )

@@ -1,0 +1,93 @@
+<html>
+    <head>
+        <meta name="keywords" content="员工信息管理系统" />
+        <meta name="description" content="员工信息管理系统" />
+        <link href="/static/resources/css/ext-all-neptune.css" rel="stylesheet" type="text/css"/>
+        <script src="/static/js/ext-all.js" type="text/javascript"></script>
+        <script src="/static/js/locale/ext-lang-zh_CN.js" type="text/javascript"></script>
+        <script>
+            Ext.Ajax.on('beforerequest', function (conn, options) {
+                if (!(/^http:.*/.test(options.url) || /^https:.*/.test(options.url))) {
+
+                    if(Ext.util.Cookies.get('csrftoken')==null){
+                        Ext.util.Cookies.set('csrftoken','csrftoken')
+                    }
+                    if (typeof(options.headers) == "undefined") {
+                        options.headers = {'X-CSRFToken': Ext.util.Cookies.get('csrftoken')};
+                        } else {
+                        options.headers['X-CSRFToken']=Ext.util.Cookies.get('csrftoken');
+                    }
+                }
+            }, this);
+            Ext.onReady(function()
+            {
+                Ext.tip.QuickTipManager.init();
+
+                loginForm =  Ext.create('Ext.form.Panel', {
+                    title:'用户登录',
+                    bodyPadding:5,
+                    width:400,
+                    height:150,
+                    x:380, 
+                    y:200,
+                    url:'/accounts/login/',
+                    region:'center',
+                    items:[{
+                        id:'username',
+                        name:'username',   
+                        xtype:'textfield',
+                        fieldLabel:'用户名',
+                        allowBlank:false,
+                        blankText:'用户名不能为空',
+                        },{
+                        id:'password',
+                        name:'password',
+                        xtype:'textfield',
+                        fieldLabel:'密码',
+                        allowBlank:false,
+                        blankText:'密码不能为空',
+                        inputType:'password',   
+                    }],
+                    buttons: [{  
+                        text: '登录',  
+                        type: 'submit',  
+                        id: 'sb',  
+                        formBind: true,
+                        //定义表单提交事件  
+                        handler:function(){
+                            loginForm.form.submit({
+                                success: function(form, action){
+                                    var json = Ext.JSON.decode(action.response.responseText);
+                                    if (json.success=='true') {
+                                        window.location.href=json.msg;       
+                                    }else{
+                                        Ext.Msg.alert('错误信息',json.msg);
+                                    }    
+                                },
+                                failure: function(form, action){
+                                    Ext.Msg.alert('系统异常',action.response.responseText.msg);
+                                }, 
+                            })
+                        }}, {  
+                        text: '重置',  
+                        handler: function() {  
+                            loginForm.form.reset();  
+                        }  
+                    }],
+                });
+
+                Ext.create('Ext.Viewport', {
+                    id: 'viewport',
+                    layout: 'absolute',
+                    items: [loginForm],
+                    style: {
+                        background:'lightblue',
+                        },
+                        renderTo: document.body
+                    });        
+                    })
+                </script>
+            </head>
+            <body>
+            </body> 
+        </html>    
