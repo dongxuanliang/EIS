@@ -9,6 +9,7 @@ from staff.models import Staff
 from django.core import serializers
 from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
 from staff.forms import StaffForm
+from django.contrib.auth.decorators import login_required
 
 def login_view(request):
     if request.method == "POST":
@@ -24,18 +25,21 @@ def login_view(request):
     else:
         return render_to_response('login.html',context_instance=RequestContext(request))
 
+@login_required
 def main(request):
-    return  render_to_response('main.html')
+    return  render_to_response('main.html',context_instance=RequestContext(request))
 
+@login_required
 def logout_view(request):
     auth.logout(request)
-    return
+    return HttpResponseRedirect('/accounts/login/')
 
+@login_required
 def ajax_staff_list(request):
     callback = request.GET.get('callback','null')
     name = request.GET.get('name','')
     page = request.GET.get('page',1)
-    limit = request.GET.get('limit',25) 
+    limit = request.GET.get('limit',25)
     queryset = Staff.objects.filter(name__contains=name)
     paginator = Paginator(queryset, limit)
     try:
@@ -47,6 +51,7 @@ def ajax_staff_list(request):
     data = '%s({"total": %s, "%s": %s})' %(callback, queryset.count(), 'records', serializers.serialize('json', staffs))
     return HttpResponse(data)
 
+@login_required
 def ajax_staff_del(request):
     ids = request.GET.get('ids','');
     try:
@@ -56,6 +61,7 @@ def ajax_staff_del(request):
         data={'success':'false','msg':'系统异常'}
     return HttpResponse(simplejson.dumps(data, ensure_ascii=False))
 
+@login_required
 def ajax_staff_add(request):
     form = StaffForm(request.POST)
     if form.is_valid():
