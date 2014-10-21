@@ -10,6 +10,7 @@ from django.core import serializers
 from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
 from staff.forms import StaffForm
 from django.contrib.auth.decorators import login_required
+from common.decorator import log_record,log_test
 
 def login_view(request):
     if request.method == "POST":
@@ -26,6 +27,7 @@ def login_view(request):
         return render_to_response('login.html',context_instance=RequestContext(request))
 
 @login_required
+@log_record(step=1)
 def main(request):
     return  render_to_response('main.html',context_instance=RequestContext(request))
 

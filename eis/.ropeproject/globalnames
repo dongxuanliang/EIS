@@ -1,6 +1,8 @@
 €}q(Ustaff.models]qUStaffqaUstaff.views]q(Uajax_staff_listqUajax_staff_delqUlogout_viewqU
 login_viewqUajax_staff_addq	Umainq
-eUeis.settings]q(UMANAGERSqULANGUAGE_CODEqUSITE_IDqUUSE_I18NqUMIDDLEWARE_CLASSESqUROOT_URLCONFqU
+eUeis.settings]q(UMANAGERSqULANGUAGE_CODEqUSITE_IDqUROOT_URLCONFqUMIDDLEWARE_CLASSESqUUSE_I18NqU
 SECRET_KEYqUSTATIC_ROOTqU	TIME_ZONEqUTEMPLATE_LOADERSqU	DATABASESqUWSGI_APPLICATIONqUALLOWED_HOSTSqUTEMPLATE_DIRSqULOGGINGqUSTATICFILES_FINDERSqU
 STATIC_URLqUUSE_L10NqUDEBUGqUUSE_TZqUINSTALLED_APPSq U
-MEDIA_ROOTq!USTATICFILES_DIRSq"UADMINSq#UTEMPLATE_DEBUGq$U	MEDIA_URLq%eU	eis.views]q&Uhelloq'aUeis.urls]q(Uurlpatternsq)aUstaff.forms]q*U	StaffFormq+au.
+MEDIA_ROOTq!USTATICFILES_DIRSq"UADMINSq#UTEMPLATE_DEBUGq$U	MEDIA_URLq%eU	decorator]q&(U
+log_recordq'Uloggerq(eU	eis.views]q)Uhelloq*aUcommon.decorator]q+(U
+log_recordq,Ulog_testq-Uloggerq.eUeis.urls]q/Uurlpatternsq0aUstaff.forms]q1U	StaffFormq2au.

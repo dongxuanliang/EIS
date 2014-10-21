@@ -9,6 +9,26 @@
 @copyright: Copyright Maimiaotech.com
 
 """
+import logging
 
+logger = logging.getLogger()
 
+def log_record(step=1):
+    def _wrapper_func(func):
+        def __wrapped_func(*args, **kwargs):
+            res = None
+            logger.info("start the function:"+func.__name__)
+            res =  func(*args, **kwargs)
+            logger.info("finish the function:"+func.__name__)
+            return res
+        return __wrapped_func
+    return _wrapper_func
 
+def log_test(func):
+    def wrapper_func(*args, **kwargs):
+        res = None
+        logger.info("start the function:"+func.__name__)
+        res = func(*args, **kwargs)
+        logger.info("finish the function:"+func.__name__)
+        return res
+    return wrapper_func

@@ -129,6 +129,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'staff',
     'eis',
+    'common',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -144,18 +145,39 @@ LOGGING = {
             '()': 'django.utils.log.RequireDebugFalse'
         }
     },
+     'root':{
+            'handlers':['file'],
+            'level':'INFO',
+            'propagate':True,
+        },
     'handlers': {
         'mail_admins': {
             'level': 'ERROR',
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
+        },
+        'file':{
+            'level':'DEBUG',
+            'formatter': 'default',
+            'class':'logging.handlers.RotatingFileHandler',
+            'filename':  '/tmp/eis/eis.log',
         }
     },
     'loggers': {
         'django.request': {
             'handlers': ['mail_admins'],
-            'level': 'ERROR',
+            'level': 'DEBUG',
             'propagate': True,
         },
-    }
+      #  'root':{
+       #     'handlers':['file'],
+         #   'level':'DEBUG',
+        #    'propagate':True,
+          #        },
+    },
+    'formatters':{
+            'default':{
+                    'format': '%(asctime)s %(levelname)-2s %(name)s.%(funcName)s:%(lineno)-5d %(message)s'
+                     }
+                }
 }

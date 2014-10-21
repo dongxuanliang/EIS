@@ -6,7 +6,7 @@
         <script src="/static/js/ext-all.js" type="text/javascript"></script>
         <script src="/static/js/locale/ext-lang-zh_CN.js" type="text/javascript"></script>
         <script>
-                Ext.Ajax.on('beforerequest', function(conn, options) {
+            Ext.Ajax.on('beforerequest', function(conn, options) {
                 if (!(/^http:.*/.test(options.url) || /^https:.*/.test(options.url))) {
 
                     if(Ext.util.Cookies.get('csrftoken')==null){
@@ -73,162 +73,167 @@
                 });
 
                 var win = Ext.create('widget.window', {
-                title: '添加员工信息',
-                width: 350,
-                layout: 'fit',
-                closable: true,
-                closeAction: 'hide',
-                modal: true,
-                resizable: false,
-                items: [Ext.create('Ext.form.Panel', {
-                id: 'frmStaff',
-                bodyStyle:'padding:20px 0 0 20px',
-                border: false,
-                autoScroll: false,
-                url:'/ajax_staff_add/',
-                fieldDefaults: {
-                labelAlign: 'left',
-                labelWidth: 70, 
-                msgTarget: 'side'
-                },
-                items: [{
-                xtype:'textfield',
-                id: 'staff.name',
-                name: 'name',
-                fieldLabel: '姓名',
-                allowBlank: false,
-                maxLength:30,
-                },{
-                xtype:'numberfield',
-                id: 'age',
-                name: 'age',
-                fieldLabel: '年龄',
-                allowBlank: false,
-                maxLength:3,
-                },{
-                xtype:'combo',
-                id: 'sex', 
-                name: 'sex',
-                fieldLabel: '性别',
-                store:sexstore,
-                valueField:'name',
-                displayField:'value',
-                editable:false,
-                allowBlank: false,
-                },{
-                xtype:'textfield',
-                id:'edu',
-                name:'edu',
-                fieldLabel:'毕业学校',
-                allowBlank: false,
-                maxLength:100,
-                },{
-                xtype:'numberfield',
-                id:'workage',
-                name:'workage',
-                fieldLabel:'工龄',
-                allowBlank: false,
-                maxLength:2,
-                },{
-                xtype:'numberfield',
-                id:'salary',
-                name:'salary',
-                fieldLabel:'薪水',
-                allowBlank: false,
-                maxLength:10,
-                },{
-                xtype:'textfield',
-                id:'address',
-                name:'address',
-                fieldLabel:'居住地址',
-                allowBlank: false,
-                maxLength:200,
-                }]
-                })],
-                buttons: [{
-                id: "btnOK",
-                text:'确定',    
-                handler: function(){
-                Ext.getCmp('frmStaff').form.submit(
-                {
-                success: function(form, action){
-                var json = Ext.JSON.decode(action.response.responseText);
-                if (json.success=='true') {
-                storeStaff.load();      
-                }else{
-                Ext.Msg.alert('错误信息',json.msg);
-                }
-                win.hide();
-                },
-                failure: function(form, action){
-                Ext.Msg.alert('系统异常',action.response.responseText.msg);
-                }, 
-                }
-                );
-                }
-                },{
-                id: "btnCancel",
-                text:'取消',
-                handler: function(){
-                win.hide();
-                }
-                }]
+                    title: '添加员工信息',
+                    width: 350,
+                    layout: 'fit',
+                    closable: true,
+                    closeAction: 'hide',
+                    modal: true,
+                    resizable: false,
+                    items: [Ext.create('Ext.form.Panel', {
+                        id: 'frmStaff',
+                        bodyStyle:'padding:20px 0 0 20px',
+                        border: false,
+                        autoScroll: false,
+                        url:'/ajax_staff_add/',
+                        fieldDefaults: {
+                            labelAlign: 'left',
+                            labelWidth: 70, 
+                            msgTarget: 'side'
+                        },
+                        items: [{
+                            xtype:'textfield',
+                            id: 'staff.name',
+                            name: 'name',
+                            fieldLabel: '姓名',
+                            allowBlank: false,
+                            maxLength:30,
+                            },{
+                            xtype:'numberfield',
+                            id: 'age',
+                            name: 'age',
+                            fieldLabel: '年龄',
+                            allowBlank: false,
+                            maxLength:3,
+                            },{
+                            xtype:'combo',
+                            id: 'sex', 
+                            name: 'sex',
+                            fieldLabel: '性别',
+                            store:sexstore,
+                            valueField:'name',
+                            displayField:'value',
+                            editable:false,
+                            allowBlank: false,
+                            },{
+                            xtype:'textfield',
+                            id:'edu',
+                            name:'edu',
+                            fieldLabel:'毕业学校',
+                            allowBlank: false,
+                            maxLength:100,
+                            },{
+                            xtype:'numberfield',
+                            id:'workage',
+                            name:'workage',
+                            fieldLabel:'工龄',
+                            allowBlank: false,
+                            maxLength:2,
+                            },{
+                            xtype:'numberfield',
+                            id:'salary',
+                            name:'salary',
+                            fieldLabel:'薪水',
+                            allowBlank: false,
+                            maxLength:10,
+                            },{
+                            xtype:'textfield',
+                            id:'address',
+                            name:'address',
+                            fieldLabel:'居住地址',
+                            allowBlank: false,
+                            maxLength:200,
+                        }]
+                    })],
+                    buttons: [{
+                        id: "btnOK",
+                        text:'确定',    
+                        handler: function(){
+                            Ext.getCmp('frmStaff').form.submit(
+                            {
+                                success: function(form, action){
+                                    var json = Ext.JSON.decode(action.response.responseText);
+                                    if (json.success=='true') {
+                                        storeStaff.load();      
+                                        }else{
+                                        Ext.Msg.alert('错误信息',json.msg);
+                                    }
+                                    win.hide();
+                                },
+                                failure: function(form, action){
+                                    Ext.Msg.alert('系统异常',action.response.responseText.msg);
+                                }, 
+                            }
+                            );
+                        }
+                        },{
+                        id: "btnCancel",
+                        text:'取消',
+                        handler: function(){
+                            win.hide();
+                        }
+                    }]
                 });
 
                 var btnBar =  Ext.create('Ext.Toolbar', {
-                items: [{
-                id:'btnAdd',
-                text:'增加',
-                iconCls:'icon-add',
-                handler: function(btn,event){
-                    win.show(this,function(){
-                        Ext.getCmp('frmStaff').getForm().reset();
-                    })
-                }
-                },{
-                id:'btnDel',
-                text:'删除',
-                disabled:true,
-                iconCls:'icon-del',
-                handler:function(btn,event){
-                var rows = gridPanel.selModel.getSelection();
-                Ext.Msg.show({
-                title : '提示',
-                msg : '确定要删除吗？',
-                buttons : Ext.Msg.OKCANCEL,
-                icon : Ext.MessageBox.QUESTION,
-                fn : function(btn, text) {
-                if (btn == 'ok') {
-                // 构建Ajax参数
-                var ajaxparams = "ids=";
-                for ( var i = 0; i < rows.length; i++) {
-                ajaxparams += rows[i].get('id');
-                if (i < rows.length - 1) 
-                ajaxparams += ",";
-                }
-                // 发送请求
-                Ext.Ajax.request({
-                url: '/ajax_staff_del/',
-                params: ajaxparams,
-                method: "GET",
-                waitMsg : "正在删除...",
-                success : function(response, options) {
-                var json = Ext.JSON.decode(response.responseText);
-                if (json.success=='true') {
-                storeStaff.load();
-                }else{
-                Ext.Msg.alert("提示", json.msg);
-                }
-                },
-                failure : function(response, options) {
-                Ext.ajaxFailure(response, options);
-                }
-                });
-                }
-                }
-                });
-                }
-                }],
+                    items: [{
+                        id:'btnAdd',
+                        text:'增加',
+                        iconCls:'icon-add',
+                        handler: function(btn,event){
+                            win.show(this,function(){
+                                Ext.getCmp('frmStaff').getForm().reset();
+                            })
+                        }
+                        },{
+                        id:'btnDel',
+                        text:'删除',
+                        disabled:true,
+                        iconCls:'icon-del',
+                        handler:function(btn,event){
+                            var rows = gridPanel.selModel.getSelection();
+                            Ext.Msg.show({
+                                title : '提示',
+                                msg : '确定要删除吗？',
+                                buttons : Ext.Msg.OKCANCEL,
+                                icon : Ext.MessageBox.QUESTION,
+                                fn : function(btn, text) {
+                                    if (btn == 'ok') {
+                                        // 构建Ajax参数
+                                        var ajaxparams = "ids=";
+                                        for ( var i = 0; i < rows.length; i++) {
+                                            ajaxparams += rows[i].get('id');
+                                            if (i < rows.length - 1) 
+                                            ajaxparams += ",";
+                                        }
+                                        // 发送请求
+                                        Ext.Ajax.request({
+                                            url: '/ajax_staff_del/',
+                                            params: ajaxparams,
+                                            method: "GET",
+                                            waitMsg : "正在删除...",
+                                            success : function(response, options) {
+                                                var json = Ext.JSON.decode(response.responseText);
+                                                if (json.success=='true') {
+                                                    storeStaff.load();
+                                                    }else{
+                                                    Ext.Msg.alert("提示", json.msg);
+                                                }
+                                            },
+                                            failure : function(response, options) {
+                                                Ext.ajaxFailure(response, options);
+                                            }
+                                        });
+                                    }
+                                }
+                            });
+                        }
+                        },{text:'{{user.username}}'},{
+                        text:'logout',
+                        handler:function(btn,event){
+                            window.location.href='/accounts/logout/'
+                        }   
+                    }],
                 });
 
                 var filterBar= Ext.create('Ext.Toolbar', {
